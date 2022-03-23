@@ -1,0 +1,29 @@
+.product img{
+    width: 100%;
+}
+.products-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #95A0A7;
+    border-radius: 8px;
+}
+.product{
+    padding: 7px;
+    padding-bottom: 0;
+}
+.add-cart-btn{
+    background-color: #FFE0B3;
+    color: #0E161A;
+    font-size: 1.3em;
+    width: 100%;
+    padding: 15px 0;
+    border: none;
+    border-radius: 2px 2px 8px 8px;
+    margin-top: 10px;
+    transition: .5s;
+}
+.add-cart-btn:hover{
+    cursor: pointer;
+    background-color: #FF9900;
+}
