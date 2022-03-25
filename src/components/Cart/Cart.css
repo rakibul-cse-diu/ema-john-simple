@@ -1,0 +1,13 @@
+.cart-wrapper h2{
+    text-align: center;
+    margin-bottom: 30px;
+}
+.memo{
+    font-size: 1.3em;
+}
+.memo p{
+    margin: 10px 5px;
+}
+.memo h4{
+    margin: 10px 0;
+}

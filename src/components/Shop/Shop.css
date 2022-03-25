@@ -2,11 +2,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 65%;
     margin: 30px 60px;
 }
 #category{
-    font-size: 1em;
+    font-size: 1.3em;
 }
 .shop-container{
     display: grid;
@@ -25,4 +24,5 @@
     position: sticky;
     top: 0;
     right: 0;
+    padding: 30px 10px;
 }

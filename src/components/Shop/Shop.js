@@ -1,11 +1,6 @@
-// Men's Sneaker
-// Men's Pants
-// Men's Boot
-// Bag
-// Cap
-// Earphones
-// Bottle
 import React, { useEffect, useState } from 'react';
+import { addToDataBase, getCartFromDb } from '../../Utilities/storage';
+import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
 
@@ -15,7 +10,9 @@ const Shop = () => {
 
     const [Products, setProducts] = useState([]);
     const [Category, setCategory] = useState("All");
+    const [CartItem, setCartItem] = useState([]);
 
+    // Load Data
     useEffect(() => {
         fetch("products.json")
             .then(res => res.json())
@@ -24,19 +21,43 @@ const Shop = () => {
             })
     }, []);
 
+    // Get cart from storage
+    useEffect(() => {
+        const storedCart = getCartFromDb();
+        let productOnCart = [];
+        for (const key in storedCart) {
+            const addedProducts = Products.find(product => product.id === key)
+            if (addedProducts) {
+                addedProducts.quantity = storedCart[key]
+                productOnCart.push(addedProducts);
+            }
+        }
+        setCartItem(productOnCart);
+    }, [Products])
+
+    // Category select
     const handleCategory = (e) => {
         const category = e.target.value;
         setCategory(category);
     }
 
-
-
+    // Handler for Add to cart button 
     const handleAddToCart = (item) => {
-        console.log(item);
+        let newCart = [];
+        const addedProduct = CartItem.find(pd => pd.id === item.id)
+        if (addedProduct) {
+            const restProduct = CartItem.filter(pd => pd.id !== item.id)
+            item.quantity = item.quantity + 1;
+            newCart = [...restProduct, item]
+        } else {
+            item.quantity = 1;
+            newCart = [...CartItem, item]
+        }
+        setCartItem(newCart)
+        addToDataBase(item.id);
     }
 
-
-
+    // Display data according tothe category 
     if (Category === '' || Category === "All") {
         showProducts = Products.map(product => <Product products={product} handleAddToCart={handleAddToCart} key={product.id}></Product>)
     }
@@ -94,7 +115,7 @@ const Shop = () => {
                     }
                 </div>
                 <div className="carts">
-
+                    <Cart cartItem={CartItem}></Cart>
                 </div>
             </div>
 
